@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import shortid from 'shortid';
-import { getPositions, getToken, postUser, setToken } from '../../service/Api';
+import { getPositions, getToken, postUser} from '../../service/Api';
 // import { useDispatch } from 'react-redux';
 // import google from '../../images/google.svg';
 // import { logIn, signUp } from '../../redux/Auth/authOperations';
@@ -21,20 +21,21 @@ import {
   FileInput,
 } from './LoginForm.styled';
 
-const LoginForm = () => {
+const LoginForm = ({userStatus}) => {
   //   const dispatch = useDispatch();
   const nameID = shortid.generate();
   const emailID = shortid.generate();
   const phonelID = shortid.generate();
 
   const [positions, setPositions] = useState([]);
-    const [newToken, setNewToken] = useState('');
+  const [newToken, setNewToken] = useState('');
+  // const [newUserCreated, setNewUserCreated] = useState(false);
+
   useEffect(() => {
     getPositions().then(response => setPositions(response));
     getToken().then(response => setNewToken(response.token));
-    
   }, []);
-  
+
   return (
     <FormLayout>
       <Formik
@@ -65,13 +66,16 @@ const LoginForm = () => {
           }
           if (!values.phone) {
             errors.phone = 'This is a required field';
-          } else if (!/[+]{0,1}380([0-9]{9})?/.test(values.phone)) {
+            // eslint-disable-next-line
+          } else if (!/^[\+]{0,1}380([0-9]{9})$/.test(values.phone)) {
             errors.phone = 'Invalid phone (should start with +380)';
           }
           return errors;
         }}
         onSubmit={values => {
-          postUser({values, newToken});
+          const user = postUser({ values, newToken });
+          console.log(user);
+          userStatus(user);
         }}
       >
         {({
@@ -150,6 +154,7 @@ const LoginForm = () => {
               <FileInput
                 type="file"
                 name="photo"
+                id="photoFile"
                 // value={position.id}
                 onChange={handleChange}
                 accept=".jpg, .jpeg"

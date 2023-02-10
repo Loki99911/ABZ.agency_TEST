@@ -1,21 +1,27 @@
 import { ContainerComp } from 'components/ContainerComp/ContainerComp';
 import LoginForm from 'components/LoginForm/LoginForm';
-// import { useEffect, useState } from 'react';
-// import { getPositions } from 'service/Api';
+import {useState } from 'react';
+import successImg from '../../Assets/success-image.svg';
 import { FormTitle, FormWraper } from './FormBlock.styled';
 
 export const FormBlock = () => {
-  // const [positionList, setPositionList] = useState([]);
-
-  //   useEffect(() => {
-  //     getPositions().then(setPositionList);
-  //   }, []);
-  // console.log(positionList);
+ 
+  const [newUserCreated, setNewUserCreated] = useState(false);
+  console.log(newUserCreated);
   return (
     <ContainerComp>
       <FormWraper id="formBlock">
-        <FormTitle>Working with POST request</FormTitle>
-        <LoginForm/>
+        {newUserCreated ? (
+          <>
+            <FormTitle>User successfully registered</FormTitle>
+            <img src={successImg} alt="Success"/>
+          </>
+        ) : (
+          <>
+            <FormTitle>Working with POST request</FormTitle>
+            <LoginForm userStatus={setNewUserCreated} />
+          </>
+        )}
       </FormWraper>
     </ContainerComp>
   );
