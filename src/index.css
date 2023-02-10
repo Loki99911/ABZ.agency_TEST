@@ -7,9 +7,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+background-color: #F8F8F8;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1,h2,h3,p{
+  margin: 0;
+  padding: 0;
 }
