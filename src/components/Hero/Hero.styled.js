@@ -64,6 +64,7 @@ export const Link = styled.a`
   text-align: center;
   color: inherit;
   margin: 0 auto;
+  
   :hover {
     background-color: #ffe302;
   }
