@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const FormLayout = styled.div`
-  width: 380px;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 380px;
+  }
 `;
 
 export const FormText = styled.p`
@@ -66,20 +69,37 @@ export const LoginInput = styled.input`
 `;
 
 export const LoginBtn = styled.button`
-  transition: color 250ms linear, background-color 250ms linear;
-  &:hover {
-    color: var(--auth-background-bot-part-color);
-    background-color: var(--general-accent-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 34px;
+  border: none;
+  border-radius: 80px;
+  background-color: #f4e041;
+  font-size: 16px;
+  line-height: 26px;
+  text-decoration: none;
+  text-align: center;
+  color: inherit;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  :hover{
+    background-color: #FFE302;
+  }
+  &:disabled {
+    background-color: #b4b4b4;
+    color: #ffffff;
   }
 `;
 
 export const ErrorText = styled.span`
   display: flex;
   position: absolute;
-  top: 54px;
+  top: 58px;
   color: #cb3d40;
   &:nth-of-type(2) {
-    top: 160px;
+    top: 162px;
   }
   &:last-of-type {
     top: 266px;
@@ -96,7 +116,7 @@ export const HelperText = styled.span`
 `;
 
 export const PositionTitle = styled.h3`
-font-weight: normal;
+  font-weight: normal;
   font-size: 16px;
   line-height: 26px;
   margin-bottom: 11px;
@@ -156,6 +176,39 @@ export const PositionInput = styled.input`
   }
 `;
 
-export const FileLabel = styled.label``;
+export const FileLabel = styled.label`
+  margin-top: 47px;
+  margin-bottom: 50px;
+`;
 
-export const FileInput = styled.input``;
+export const FileInput = styled.input`
+display: none;
+`;
+
+export const FakeFileInput = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  font-size: 16px;
+  line-height: 26px;
+  width: 100%;
+  height: 54px;
+  border: 1px solid #d0cfcf;
+  border-radius: 4px;
+  color: #d0cfcf;
+`;
+
+export const FakeFileBtn = styled.span`
+  position: absolute;
+  left:-1px;
+  height: 54px;
+  padding: 14px 15px;
+  border: 1px solid rgba(0, 0, 0, 0.87);
+  border-top-left-radius: 4px 4px;
+  border-bottom-left-radius: 4px 4px;
+  color: rgba(0, 0, 0, 0.87);
+`;
+
+export const FakeFileText = styled.p`
+padding-left: 99px;
+`;

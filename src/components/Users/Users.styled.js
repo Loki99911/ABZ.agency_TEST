@@ -37,4 +37,7 @@ export const UserBtn = styled.button`
   border: none;
   background-color: #f4e041;
   margin: 0 auto;
+  :hover {
+    background-color: #ffe302;
+  }
 `;

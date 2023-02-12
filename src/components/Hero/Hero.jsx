@@ -1,4 +1,4 @@
-import { Layout, HeroHeader, HeroText } from './Hero.styled';
+import { Layout, HeroHeader, HeroText, Link } from './Hero.styled';
 
 export const Hero = () => {
   return (
@@ -11,6 +11,7 @@ export const Hero = () => {
         mind. They should also be excited to learn, as the world of Front-End
         Development keeps evolving.
       </HeroText>
+      <Link href="#formBlock">Sign up</Link>
     </Layout>
   );
 };

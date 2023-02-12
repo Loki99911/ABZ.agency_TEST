@@ -10,7 +10,6 @@ export const Layout = styled.section`
     url(${img});
   background-color: #c4c4c4;
   background-repeat: no-repeat;
-  /* background-position: center; */
   background-size: cover;
   height: 500px;
   margin: 0 auto;
@@ -40,6 +39,7 @@ export const HeroHeader = styled.h1`
   font-size: 40px;
   line-height: 40px;
   margin-bottom: 21px;
+  color: #ffffff;
 `;
 
 export const HeroText = styled.p`
@@ -47,4 +47,24 @@ export const HeroText = styled.p`
   font-size: 16px;
   line-height: 26px;
   margin-bottom: 32px;
+  color: #ffffff;
+`;
+
+export const Link = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 34px;
+  border-radius: 80px;
+  background-color: #f4e041;
+  font-size: 16px;
+  line-height: 26px;
+  text-decoration: none;
+  text-align: center;
+  color: inherit;
+  margin: 0 auto;
+  :hover {
+    background-color: #ffe302;
+  }
 `;

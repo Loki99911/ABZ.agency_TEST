@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import shortid from 'shortid';
-import { getPositions, getToken, postUser} from '../../service/Api';
+import { getPositions, getToken, postUser } from '../../service/Api';
 // import { useDispatch } from 'react-redux';
 // import google from '../../images/google.svg';
 // import { logIn, signUp } from '../../redux/Auth/authOperations';
@@ -19,9 +19,12 @@ import {
   FakeInput,
   FileLabel,
   FileInput,
+  FakeFileInput,
+  FakeFileBtn,
+  FakeFileText,
 } from './LoginForm.styled';
 
-const LoginForm = ({userStatus}) => {
+const LoginForm = ({ userStatus }) => {
   //   const dispatch = useDispatch();
   const nameID = shortid.generate();
   const emailID = shortid.generate();
@@ -29,7 +32,7 @@ const LoginForm = ({userStatus}) => {
 
   const [positions, setPositions] = useState([]);
   const [newToken, setNewToken] = useState('');
-  // const [newUserCreated, setNewUserCreated] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(true);
 
   useEffect(() => {
     getPositions().then(response => setPositions(response));
@@ -43,7 +46,7 @@ const LoginForm = ({userStatus}) => {
           name: '',
           email: '',
           phone: '',
-          position_id: '',
+          position_id: '1',
           photo: null,
         }}
         validate={values => {
@@ -70,11 +73,30 @@ const LoginForm = ({userStatus}) => {
           } else if (!/^[\+]{0,1}380([0-9]{9})$/.test(values.phone)) {
             errors.phone = 'Invalid phone (should start with +380)';
           }
+
+          if (!values.position_id) {
+            errors.position_id = 'This is a required field';
+            // eslint-disable-next-line
+          } else if (!/^[\+]{0,1}380([0-9]{9})$/.test(values.phone)) {
+            errors.phone = 'Invalid phone (should start with +380)';
+          }
+
+          if (
+            values.name.length > 0 &&
+            values.email.length > 0 &&
+            values.phone.length > 0 &&
+            values.position_id.length > 0 &&
+            values.photo !== null &&
+            Object.keys(errors).length === 0
+          ) {
+            setDisabledBtn(false);
+          } else {
+            setDisabledBtn(true);
+          }
           return errors;
         }}
         onSubmit={values => {
           const user = postUser({ values, newToken });
-          console.log(user);
           userStatus(user);
         }}
       >
@@ -85,7 +107,6 @@ const LoginForm = ({userStatus}) => {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
         }) => (
           <Form onSubmit={handleSubmit}>
             <LoginLabel htmlFor={nameID} value={values.name}>
@@ -144,7 +165,7 @@ const LoginForm = ({userStatus}) => {
                   name="position_id"
                   value={position.id}
                   onChange={handleChange}
-                  // onBlur={handleBlur}
+                  defaultChecked={position.id === 1}
                 />
                 <FakeInput />
                 {position.name}
@@ -155,12 +176,22 @@ const LoginForm = ({userStatus}) => {
                 type="file"
                 name="photo"
                 id="photoFile"
-                // value={position.id}
                 onChange={handleChange}
                 accept=".jpg, .jpeg"
               />
+              <FakeFileInput>
+                <FakeFileBtn>Upload</FakeFileBtn>
+                {/*eslint-disable-next-line*/}
+                {values.photo == 0 || values.photo === null ? (
+                  <FakeFileText>Upload your photo</FakeFileText>
+                ) : (
+                  <FakeFileText>{values.photo}</FakeFileText>
+                )}
+              </FakeFileInput>
             </FileLabel>
-            <LoginBtn type="submit">Sign up</LoginBtn>
+            <LoginBtn type="submit" disabled={disabledBtn}>
+              Sign up
+            </LoginBtn>
           </Form>
         )}
       </Formik>
