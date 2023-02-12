@@ -5,9 +5,8 @@ import successImg from '../../Assets/success-image.svg';
 import { FormTitle, FormWraper } from './FormBlock.styled';
 
 export const FormBlock = () => {
- 
   const [newUserCreated, setNewUserCreated] = useState(false);
-  console.log(newUserCreated);
+  
   return (
     <ContainerComp>
       <FormWraper id="formBlock">
